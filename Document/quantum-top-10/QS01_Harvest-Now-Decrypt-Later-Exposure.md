@@ -6,10 +6,10 @@
 
 **脆弱性のよくある例:**
 
-1. Data sets whose confidentiality requirement extends beyond 2030 - health records, intellectual property, regulated personal data with long retention, government and defence data - protected only by classical public-key cryptography.
-2. Transport and channel protection using vulnerable key establishment: TLS endpoints, VPN tunnels, encrypted backup channels, archival storage encryption, and satellite or microwave links relying on RSA, ECDH, or finite-field DH.
-3. Encrypted traffic transiting an untrusted boundary where it can be passively recorded and retained for later decryption.
-4. Session encryption migrated to PQC while long-validity certificates and key-wrapping keys are left on classical algorithms.
+1. 機密性要件が2030年を超えて延びているデータセット (医療記録、知的財産、長期保持を義務付けられた個人データ、政府および防衛データ) のうち、従来の公開鍵暗号のみで保護されているもの。
+2. 脆弱な鍵確立を使用する通信経路やチャネルの保護: RSA、ECDH、有限体 DH に依存している TLS エンドポイント、VPN トンネル、暗号化バックアップチャネル、アーカイブストレージの暗号化、衛星通信、マイクロ波リンク。
+3. 信頼できない境界を通過する暗号化されたトラフィックのうち、受動的に記録および保存され、後に復号の恐れがあるもの。
+4. PQC に移行されたセッション暗号化のうち、長期有効な証明書や鍵ラップ用鍵が従来のアルゴリズムのまま残されているもの。
 
 **防御方法:**
 
