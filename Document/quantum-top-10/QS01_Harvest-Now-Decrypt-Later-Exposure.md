@@ -13,10 +13,10 @@
 
 **防御方法:**
 
-1. Migrate vulnerable channels to hybrid post-quantum TLS using ML-KEM (FIPS 203) where the platform supports it.
-2. For data at rest, layer a PQC-protected encryption envelope over existing classical encryption for the highest-sensitivity datasets.
-3. Rotate symmetric data keys protected by quantum-vulnerable wrapping more frequently to reduce the volume exposed by any single recovered key.
-4. Reduce data retention where the business case allows - data not retained cannot be decrypted later.
+1. プラットフォームがサポートしている場合、脆弱なチャネルを、ML-KEM (FIPS 203) を使用するハイブリッドの耐量子 TLS に移行します。
+2. 保存時のデータについては、機密性が極めて高いデータセットに対し、既存の従来型暗号に加え、PQC で保護された暗号エンベローブを重ねます。
+3. 量子脆弱なラップによって保護されている対称データ鍵の入れ替え頻度を高め、単一の復元鍵によって露出される量を低減します。
+4. ビジネスケースが許す限り、データ保持期間を短縮します。保持されていないデータは後から復号されることはありません。
 
 **攻撃シナリオの例:**
 
