@@ -20,9 +20,9 @@
 
 **攻撃シナリオの例:**
 
-Scenario #1: An adversary passively records TLS-protected traffic as it crosses an untrusted network boundary today. The handshake used RSA or ECDH key establishment. The captured ciphertext is archived. Once a CRQC becomes available, the adversary recovers the session key via Shor's algorithm and decrypts years of previously confidential traffic retroactively.
+シナリオ #1: 敵対者は、現時点で信頼できないネットワーク境界を通過する TLS 保護トラフィックを、受動的に記録します。ハンドシェイクは RSA や ECDH 鍵確立を使用します。捕捉した暗号文がアーカイブされます。CRQC が利用可能になると、敵対者は Shor のアルゴリズムでセッション鍵を復元し、過去数年にわたり機密とされていたトラフィックを遡って復号します。
 
-Scenario #2: An organisation encrypts long-retention backups at rest with AES-256, but the AES data key is wrapped with RSA. An attacker exfiltrates the encrypted backups and the wrapped keys. Because the quantum-vulnerable layer is the RSA key-wrapping - not the symmetric cipher - the attacker recovers the wrapping key with a future CRQC and unwraps the AES keys, exposing the entire archive.
+シナリオ #2: 組織は長期保存バックアップを保存時に AES-256 で暗号化していますが、AES データキーは RSA でラップされています。攻撃者は暗号化されたバックアップとラップされたキーを密かに持ち出します。量子脆弱な層は対称暗号ではなく RSA キーラッピングであるため、攻撃者は将来 CRQC でラッピングキーを復元して AES キーをアンラップし、アーカイブ全体を露出します。
 
 **参考情報リンク:**
 
