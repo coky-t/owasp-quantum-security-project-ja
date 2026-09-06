@@ -35,6 +35,6 @@
 
 **規格や規制のマッピング:**
 
-> **TODO:** This section is carried over from the source document and is not part of `_template.md`. Confirm whether to keep it in the final entry format, and verify each standard/citation.
+> **TODO:** このセクションは元のドキュメントから引き継がれたものであり、`_template.md` の一部ではありません。最終的なエントリ形式に保持するかどうかを判断し、各規格や引用を検証してください。
 
-NIST FIPS 203 (ML-KEM) for key establishment. NCSC Timelines for migration to post-quantum cryptography (March 2025). EU Coordinated Implementation Roadmap (June 2025), end-2030 high-risk deadline. NSA CNSA 2.0 prioritises network encryption and long-lived secrets. NIS2 Article 21(2)(h) cryptographic policy obligation; DORA Article 9 confidentiality and integrity at rest, in use and in transit. NSM-10 and OMB M-23-02 cite HNDL as the migration driver.
+鍵確立のための NIST FIPS 203 (ML-KEM)。耐量子暗号への移行のための NCSC タイムライン (2025 年 3 月)。欧州の協調的実装ロードマップ (2025 年 6 月)、2030年末の高リスクへのデッドライン。NSA CNSA 2.0 のネットワーク暗号化と長期有効なシークレットの優先対応。NIS2 Article 21(2)(h) 暗号化ポリシーの義務、DORA Article 9 保存時、使用時、転送時の機密性と完全性。NSM-10 および OMB M-23-02 での移行推進としての HNDL の引用。
