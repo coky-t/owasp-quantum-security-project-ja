@@ -2,39 +2,45 @@
 
 **説明:**
 
-敵対者は暗号化されたトラフィックや保存された暗号文をすでにキャプチャしており、暗号関連量子コンピュータ (CRQC) が存在するまで将来の復号化に向けて保持しています。関連する演算は一般的に、RSA、有限体 Diffie-Hellman、あるいは楕円曲線 Diffie-Hellman によって保護された鍵確立のステップですが、いずれも Shor のアルゴリズムによって多項式時間で破られてしまいます。セッション鍵が復元されると、対称暗号文がそれに続きます。金融記録、健康データ、ソースコード、知的マテリアル、契約や商取引の秘密など、機密性の存続期間が重要なデータを扱う組織は、これらのプリミティブをベースとする現行の TLS、VPN、保存時の暗号化を、将来的に読み取り可能なものとして取り扱わなければなりません。このリスクは、量子ハードウェアの実現に左右されるものではなく、すでに現実のものとなっています。
+Adversaries are already capturing encrypted traffic and stored ciphertext today, retaining it for future decryption once a cryptographically relevant quantum computer (CRQC) exists. The relevant operation is typically a key-establishment step protected by RSA, finite-field Diffie-Hellman, or elliptic-curve Diffie-Hellman - all broken in polynomial time by Shor's algorithm. Once the session key or wrapping key is recovered, the symmetric ciphertext it protects follows. This entry covers the full harvest surface: data captured **in transit**, where an adversary records ciphertext as it crosses an untrusted network boundary, and data already sitting **at rest**, where an adversary can exfiltrate an existing encrypted store at any point before a CRQC exists and simply wait. Both are the same exposure - ciphertext an adversary can obtain now, protected by an algorithm that fails later - differing only in where the ciphertext currently resides.
+
+Mosca's inequality is the operative planning frame for both surfaces: if the time to migrate to quantum-safe cryptography (X) plus the required confidentiality lifetime of the data (Y) exceeds the time until a CRQC exists (Z), the data is already exposed regardless of exactly when a CRQC arrives. For in-transit data this determines how urgently a channel needs migrating; for at-rest data - archives, backups, regulated personal data, identity records, intellectual property - it determines how urgently existing stores need re-encryption, since a record with a multi-decade retention requirement can fail this inequality today even if migration starts immediately. Any organisation whose data has meaningful confidentiality lifetime - financial records, health data, source code, intelligence material, contractual or commercial secrets - must treat current TLS, VPN, and at-rest encryption based on these primitives as future-readable. The risk is concrete now, not contingent on quantum hardware availability.
 
 **脆弱性のよくある例:**
 
-1. 機密性要件が2030年を超えて延びているデータセット (医療記録、知的財産、長期保持を義務付けられた個人データ、政府および防衛データ) のうち、従来の公開鍵暗号のみで保護されているもの。
-2. 脆弱な鍵確立を使用する通信経路やチャネルの保護: RSA、ECDH、有限体 DH に依存している TLS エンドポイント、VPN トンネル、暗号化バックアップチャネル、アーカイブストレージの暗号化、衛星通信、マイクロ波リンク。
-3. 信頼できない境界を通過する暗号化されたトラフィックのうち、受動的に記録および保存され、後に復号の恐れがあるもの。
-4. PQC に移行されたセッション暗号化のうち、長期有効な証明書や鍵ラップ用鍵が従来のアルゴリズムのまま残されているもの。
+1. Data sets whose confidentiality requirement extends beyond the CRQC planning horizon most regulators use (2030-2035) - health records, intellectual property, regulated personal data with long retention, government and defence data - protected only by classical public-key cryptography, whether in transit or already stored.
+2. Transport and channel protection using vulnerable key establishment: TLS endpoints, VPN tunnels, encrypted backup channels, and satellite or microwave links relying on RSA, ECDH, or finite-field DH, traversing an untrusted boundary where they can be passively recorded and retained.
+3. Archives and backups that pre-date current crypto policy, held under long retention requirements, where confidentiality lifetime plus migration lead time already exceeds the CRQC horizon by Mosca's inequality.
+4. Data at rest encrypted with AES-256 but wrapped with an RSA or ECC key - the quantum-vulnerable layer sits above the symmetric key, so the attacker's target is the wrapping key, not the cipher.
+5. Session encryption migrated to PQC while long-validity certificates and key-wrapping keys protecting archived data are left on classical algorithms.
 
 **防御方法:**
 
-1. プラットフォームがサポートしている場合、脆弱なチャネルを、ML-KEM (FIPS 203) を使用するハイブリッドの耐量子 TLS に移行します。
-2. 保存時のデータについては、機密性が極めて高いデータセットに対し、既存の従来型暗号に加え、PQC で保護された暗号エンベローブを重ねます。
-3. 量子脆弱なラップによって保護されている対称データ鍵の入れ替え頻度を高め、単一の復元鍵によって露出される量を低減します。
-4. ビジネスケースが許す限り、データ保持期間を短縮します。保持されていないデータは後から復号されることはありません。
+1. Migrate vulnerable channels to hybrid post-quantum TLS using ML-KEM (FIPS 203) where the platform supports it.
+2. Classify data by confidentiality lifetime, not just sensitivity - a medium-sensitivity record with a 30-year retention requirement may outrank a high-sensitivity record retained for two years, and Mosca's inequality is the tool for making that ranking explicit.
+3. For the highest-priority archives identified by that classification, layer a PQC-protected encryption envelope over the existing classical encryption, sequenced against migration capacity.
+4. Rotate symmetric data keys protected by quantum-vulnerable wrapping more frequently, to reduce the volume of data exposed by the recovery of any single wrapping key.
+5. Reduce data retention where the business case allows - data not retained cannot be harvested or decrypted later.
 
 **攻撃シナリオの例:**
 
-シナリオ #1: 敵対者は、現時点で信頼できないネットワーク境界を通過する TLS 保護トラフィックを、受動的に記録します。ハンドシェイクは RSA や ECDH 鍵確立を使用します。捕捉した暗号文がアーカイブされます。CRQC が利用可能になると、敵対者は Shor のアルゴリズムでセッション鍵を復元し、過去数年にわたり機密とされていたトラフィックを遡って復号します。
+Scenario #1: An adversary passively records TLS-protected traffic as it crosses an untrusted network boundary today. The handshake used RSA or ECDH key establishment. The captured ciphertext is archived. Once a CRQC becomes available, the adversary recovers the session key via Shor's algorithm and decrypts years of previously confidential traffic retroactively.
 
-シナリオ #2: 組織は長期保存バックアップを保存時に AES-256 で暗号化していますが、AES データキーは RSA でラップされています。攻撃者は暗号化されたバックアップとラップされたキーを密かに持ち出します。量子脆弱な層は対称暗号ではなく RSA キーラッピングであるため、攻撃者は将来 CRQC でラッピングキーを復元して AES キーをアンラップし、アーカイブ全体を露出します。
+Scenario #2: A regulated entity retains personal records for a statutory 30-year period, encrypted with an RSA-wrapped AES key, held at rest rather than transmitted. An adversary exfiltrates the encrypted store today - no interception is needed, since the ciphertext already sits somewhere reachable. Applying Mosca's inequality, the confidentiality lifetime alone exceeds the CRQC horizon, so the records are effectively already compromised: the attacker recovers the wrapping key once a CRQC exists and decrypts the full archive, well within its required protection window.
 
 **参考情報リンク:**
 
-<!-- References verified 2026-07-13 against authoritative canonical sources. -->
+<!-- This entry merges the former QS01 (Harvest-Now-Decrypt-Later Exposure) and QS02 (Long-Lived Sensitive Data), consolidating the in-transit and at-rest confidentiality surfaces under Mosca's inequality as a single prioritisation frame, per the discussion in #11. QS02's integrity content (long-lived signed artefacts, identity and credential records) moves to QS03, which already covers signature trust. References verified 2026-08-05 against authoritative canonical sources. -->
 
-1. [NIST FIPS 203 (ML-KEM)](https://csrc.nist.gov/pubs/fips/203/final): 耐量子移行に向けた鍵確立標準。
-2. [UK NCSC - Timelines for migration to post-quantum cryptography (March 2025)](https://www.ncsc.gov.uk/guidance/pqc-migration-timelines): 長期生存の機密データを優先対象として明記した移行タイムライン。
-3. [EU Coordinated Implementation Roadmap for PQC (June 2025)](https://digital-strategy.ec.europa.eu/en/library/coordinated-implementation-roadmap-transition-post-quantum-cryptography): 高リスクユースケースに対する単独の量子脆弱な PKC を禁止する 2030 年末のデッドライン。
-4. [White House National Security Memorandum 10 (NSM-10)](https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2022/05/04/national-security-memorandum-on-promoting-united-states-leadership-in-quantum-computing-while-mitigating-risks-to-vulnerable-cryptographic-systems/) および [OMB M-23-02](https://www.whitehouse.gov/wp-content/uploads/2022/11/M-23-02-M-Memo-on-Migrating-to-Post-Quantum-Cryptography.pdf): 米国での移行の緊急性を主たる要因としての HNDL の引用。
+1. [NIST FIPS 203 (ML-KEM)](https://csrc.nist.gov/pubs/fips/203/final): Key-establishment standard for post-quantum migration.
+2. [NIST IR 8547 (Draft) - Transition to Post-Quantum Cryptography Standards](https://csrc.nist.gov/pubs/ir/8547/ipd): Transition planning guidance referencing Mosca's inequality.
+3. [UK NCSC - Timelines for migration to post-quantum cryptography (March 2025)](https://www.ncsc.gov.uk/guidance/pqc-migration-timelines): Migration timelines calling out long-lived sensitive data as a priority class.
+4. [EU Coordinated Implementation Roadmap for PQC (June 2025)](https://digital-strategy.ec.europa.eu/en/library/coordinated-implementation-roadmap-transition-post-quantum-cryptography): End-2030 deadline prohibiting standalone quantum-vulnerable PKC for high-risk use cases.
+5. [White House National Security Memorandum 10 (NSM-10)](https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2022/05/04/national-security-memorandum-on-promoting-united-states-leadership-in-quantum-computing-while-mitigating-risks-to-vulnerable-cryptographic-systems/) and [OMB M-23-02](https://www.whitehouse.gov/wp-content/uploads/2022/11/M-23-02-M-Memo-on-Migrating-to-Post-Quantum-Cryptography.pdf): Cite HNDL as the primary driver of US migration urgency.
+6. [EU Cyber Resilience Act - Regulation (EU) 2024/2847, Annex I](https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng): State-of-the-art protection required through the product support period, which for many products extends past 2030.
 
 **規格や規制のマッピング:**
 
-> **TODO:** このセクションは元のドキュメントから引き継がれたものであり、`_template.md` の一部ではありません。最終的なエントリ形式に保持するかどうかを判断し、各規格や引用を検証してください。
+> **TODO:** This section is carried over from the source document and is not part of `_template.md`. Confirm whether to keep it in the final entry format, and verify each standard/citation.
 
-鍵確立のための NIST FIPS 203 (ML-KEM)。耐量子暗号への移行のための NCSC タイムライン (2025 年 3 月)。欧州の協調的実装ロードマップ (2025 年 6 月)、2030年末の高リスクへのデッドライン。NSA CNSA 2.0 のネットワーク暗号化と長期有効なシークレットの優先対応。NIS2 Article 21(2)(h) 暗号化ポリシーの義務、DORA Article 9 保存時、使用時、転送時の機密性と完全性。NSM-10 および OMB M-23-02 での移行推進としての HNDL の引用。
+NIST FIPS 203 (ML-KEM) for key establishment. NIST IR 8547 (Draft) on transition planning and Mosca's inequality. NCSC Timelines for migration to post-quantum cryptography (March 2025), long-lived data prioritisation. EU Coordinated Implementation Roadmap (June 2025), end-2030 high-risk deadline and standalone-PKC prohibition. NSA CNSA 2.0 prioritises network encryption and long-lived secrets. NIS2 Article 21(2)(h) cryptographic policy obligation; DORA Article 9 confidentiality and integrity at rest, in use and in transit. NSM-10 and OMB M-23-02 cite HNDL as the migration driver. CRA Annex I requires state-of-the-art protection through the product support period.
