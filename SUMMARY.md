@@ -11,7 +11,6 @@
 ## OWASP Top 10 量子セキュリティリスク v0.1 ドラフト 日本語版
 
 - [QS01:2026 - Harvest-Now-Decrypt-Later の露出 (Harvest-Now-Decrypt-Later Exposure)](Document/quantum-top-10/QS01_Harvest-Now-Decrypt-Later-Exposure.md)
-- [QS02:2026 - 長期間有効な機密データ (Long-Lived Sensitive Data)](Document/quantum-top-10/QS02_Long-Lived-Sensitive-Data.md)
 - [QS03:2026 - 脆弱なシグネチャとコード署名 (Vulnerable Signatures and Code-Signing)](Document/quantum-top-10/QS03_Vulnerable-Signatures-and-Code-Signing.md)
 - [QS04:2026 - 暗号インベントリと CBOM の欠如 (Absent Cryptographic Inventory and CBOM)](Document/quantum-top-10/QS04_Absent-Cryptographic-Inventory-and-CBOM.md)
 - [QS05:2026 - 暗号アジリティの失敗 (Crypto-Agility Failures)](Document/quantum-top-10/QS05_Crypto-Agility-Failures.md)
