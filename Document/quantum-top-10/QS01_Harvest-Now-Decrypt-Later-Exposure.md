@@ -8,11 +8,11 @@ Mosca の不等式は両者の領域における効果的な計画指針です�
 
 **脆弱性のよくある例:**
 
-1. Data sets whose confidentiality requirement extends beyond the CRQC planning horizon most regulators use (2030-2035) - health records, intellectual property, regulated personal data with long retention, government and defence data - protected only by classical public-key cryptography, whether in transit or already stored.
-2. Transport and channel protection using vulnerable key establishment: TLS endpoints, VPN tunnels, encrypted backup channels, and satellite or microwave links relying on RSA, ECDH, or finite-field DH, traversing an untrusted boundary where they can be passively recorded and retained.
-3. Archives and backups that pre-date current crypto policy, held under long retention requirements, where confidentiality lifetime plus migration lead time already exceeds the CRQC horizon by Mosca's inequality.
-4. Data at rest encrypted with AES-256 but wrapped with an RSA or ECC key - the quantum-vulnerable layer sits above the symmetric key, so the attacker's target is the wrapping key, not the cipher.
-5. Session encryption migrated to PQC while long-validity certificates and key-wrapping keys protecting archived data are left on classical algorithms.
+1. 多くの規制当局が使用を想定する CRQC 計画 (2030 ～ 2035 年) を超えて機密性要件を維持するデータセット (医療記録、知的財産、長期保持を義務付けられた個人データ、政府および防衛データ) のうち、転送時のものやすでに保存されているもので、従来の公開鍵暗号のみで保護されているもの。
+2. 脆弱な鍵確立を使用する通信経路やチャネルの保護: RSA、ECDH、有限体 DH に依存しており、受動的に記録および保存を可能とする信頼できない境界を通過する、TLS エンドポイント、VPN トンネル、暗号化バックアップチャネル、衛星通信、マイクロ波リンク。
+3. 現在の暗号化ポリシー以前のもので、長期保持要件の下で保持されるアーカイブやバックアップであり、機密保持期間と移行所要時間を足すと Mosca の不等式 での CRQC 到来次期をすでに超えている。
+4. AES-256 で暗号化されているが RSA または ECC でラップされている保存データ。量子脆弱な層は対称鍵よりも上位に位置するため、攻撃者の標的は暗号ではなくラッピング鍵となる。
+5. PQC に移行されたセッション暗号化のうち、アーカイブデータを保護する、長期有効な証明書や鍵ラップ用鍵が従来のアルゴリズムのまま残されているもの。
 
 **防御方法:**
 
