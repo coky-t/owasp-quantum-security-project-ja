@@ -16,11 +16,11 @@ Mosca の不等式は両者の領域における効果的な計画指針です�
 
 **防御方法:**
 
-1. Migrate vulnerable channels to hybrid post-quantum TLS using ML-KEM (FIPS 203) where the platform supports it.
-2. Classify data by confidentiality lifetime, not just sensitivity - a medium-sensitivity record with a 30-year retention requirement may outrank a high-sensitivity record retained for two years, and Mosca's inequality is the tool for making that ranking explicit.
-3. For the highest-priority archives identified by that classification, layer a PQC-protected encryption envelope over the existing classical encryption, sequenced against migration capacity.
-4. Rotate symmetric data keys protected by quantum-vulnerable wrapping more frequently, to reduce the volume of data exposed by the recovery of any single wrapping key.
-5. Reduce data retention where the business case allows - data not retained cannot be harvested or decrypted later.
+1. プラットフォームがサポートしている場合、脆弱なチャネルを、ML-KEM (FIPS 203) を使用するハイブリッドの耐量子 TLS に移行します。
+2. データを、単に機密性の高さだけではなく、機密性を維持する期間によって分類します。30 年間の保持期間要件を持つ中程度の機密性のレコードは、二年間保持の高い機密性のレコードより優先する可能性があります。Mosca の不等式はそのような優先順位を明確にするツールです。
+3. そのような分類によって特定された最優先のアーカイブについて、移行能力に対する順序で、既存の従来型暗号の上に PQC で保護された暗号エンベローブを重ねます。
+4. 量子脆弱なラップによって保護されている対称データ鍵の入れ替え頻度を高めて、ラッピング鍵のいずれか一つの復元によって露出されるデータ量を低減します。
+5. ビジネスケースが許す限り、データ保持期間を短縮します。保持されていないデータは後から収集されたり復号されることはありません。
 
 **攻撃シナリオの例:**
 
