@@ -24,9 +24,9 @@ Mosca の不等式は両者の領域における効果的な計画指針です�
 
 **攻撃シナリオの例:**
 
-Scenario #1: An adversary passively records TLS-protected traffic as it crosses an untrusted network boundary today. The handshake used RSA or ECDH key establishment. The captured ciphertext is archived. Once a CRQC becomes available, the adversary recovers the session key via Shor's algorithm and decrypts years of previously confidential traffic retroactively.
+シナリオ #1: 敵対者は、現時点で信頼できないネットワーク境界を通過する TLS 保護トラフィックを、受動的に記録します。ハンドシェイクは RSA や ECDH 鍵確立を使用します。捕捉した暗号文がアーカイブされます。CRQC が利用可能になると、敵対者は Shor のアルゴリズムでセッション鍵を復元し、過去数年にわたり機密とされていたトラフィックを遡って復号します。
 
-Scenario #2: A regulated entity retains personal records for a statutory 30-year period, encrypted with an RSA-wrapped AES key, held at rest rather than transmitted. An adversary exfiltrates the encrypted store today - no interception is needed, since the ciphertext already sits somewhere reachable. Applying Mosca's inequality, the confidentiality lifetime alone exceeds the CRQC horizon, so the records are effectively already compromised: the attacker recovers the wrapping key once a CRQC exists and decrypts the full archive, well within its required protection window.
+シナリオ #2: 規制対象の事業者は個人記録を法的に定められた 30 年間にわたり保持し、RSA でラップされた AES 鍵で暗号化して、転送ではなく静止を保ちます。敵対者が本日暗号化されたストアを外部持ち出しします。暗号文はすでに到達可能な場所に存在するため、傍受は必要ありません。Mosca の不等式を適用すると、機密性を維持する期間が CRQC 出現時期を超過するため、その記録は実質的にすでに侵害されています。CRQC が実現すると、攻撃者はラッピング鍵を復元し、保護されるべき期間内にアーカイブ全体を復号します。
 
 **参考情報リンク:**
 
