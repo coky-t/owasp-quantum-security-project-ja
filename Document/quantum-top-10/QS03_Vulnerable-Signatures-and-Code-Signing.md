@@ -10,12 +10,12 @@
 
 **脆弱性のよくある例:**
 
-1. Certification authority hierarchies (root, intermediate, issuing CA) signing with RSA-2048 or ECDSA P-256 over multi-year validity periods.
-2. Code-signing keys: OS update signing, firmware signing, container image signing (Sigstore, cosign, Notary), package signing, mobile app signing, CI/CD signing.
-3. Other long-lived signature trust anchors: UEFI Secure Boot keys, TPM endorsement keys, JWT/SAML issuer keys, document-signing certificates, blockchain wallet keys.
-4. Large verifier populations - devices, services, or artefacts - that trust a classical key and cannot easily be upgraded.
-5. Long-lived signed artefacts whose validity must persist for years - contracts, regulatory filings, evidentiary records, signed software releases, blockchain transactions - where confidentiality-style Mosca's-inequality reasoning applied to integrity shows the artefact is already exposed.
-6. Identity and credential records with multi-year lifetimes - government identity issuance, professional credentials, root certificates - signed with a classical algorithm and expected to remain trustworthy well past any reasonable migration window.
+1. 認証局の階層 (ルート CA、中間 CA、発行 CA) において RSA-2048 または ECDSA P-256 で署名しており、複数年の有効期間を持っているもの。
+2. コード署名鍵: OS アップデートへの署名、ファームウェアへの署名、コンテナイメージへの署名 (Sigstore, cosign, Notary)、パッケージへの署名、モバイルアプリへの署名、CI/CD での署名。
+3. その他の長期有効なシグネチャトラストアンカー: UEFI セキュアブート鍵、TPM エンドースメント鍵、JWT/SAML 発行者鍵、ドキュメント署名証明書、ブロックチェーンウォレット鍵。
+4. 従来の鍵を信頼しており、容易にアップグレードできない、大きなベリファイア集団 (デバイス、サービス、アーティファクト)。
+5. 有効性が何年も永続しなければならない長期有効な署名付きアーティファクト (コントラクト、規制当局への提出書類、証拠記録、署名付きソフトウェアリリース、ブロックチェーン取引) において、機密性に関する Mosca の不等式推論を完全性に適用すると、そのアーティファクトがすでにさらされていることを示しているもの。
+6. 複数年の有効期間を持つアイデンティティやクレデンシャル (政府発行の身分証明書、専門資格、ルート証明書) において、従来のアルゴリズムで署名されており、適切な移行期間をかなり過ぎても信頼できるものとして維持することが期待されているもの。
 
 **防御方法:**
 
