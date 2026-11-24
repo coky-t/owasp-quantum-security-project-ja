@@ -1,4 +1,4 @@
-## QS06:2026 - 安全でない移行とハイブリッドの悪用 (Insecure Migration and Hybrid Misuse)
+## QS03:2026 - 安全でない移行とハイブリッドの悪用 (Insecure Migration and Hybrid Misuse)
 
 **説明:**
 
