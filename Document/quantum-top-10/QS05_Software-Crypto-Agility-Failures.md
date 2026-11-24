@@ -1,4 +1,4 @@
-## QS05:2026 - 暗号アジリティの失敗 (Crypto-Agility Failures)
+## QS05:2026 - ソフトウェア暗号アジリティの失敗 (Software Crypto-Agility Failures)
 
 **説明:**
 
