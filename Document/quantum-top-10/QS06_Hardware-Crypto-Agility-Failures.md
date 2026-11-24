@@ -1,4 +1,5 @@
-## QS07:2026 - ハードウェア Root of Trust (Hardware Roots of Trust)
+## QS06:2026 - ハードウェア暗号アジリティの失敗 (Hardware Crypto-Agility Failures)
+(旧「ハードウェア Root of Trust (Hardware Roots of Trust)」)
 
 **説明:**
 
@@ -40,4 +41,3 @@ Scenario #2: An organisation attempts to migrate smart cards to ML-DSA but disco
 > **TODO:** This section is carried over from the source document and is not part of `_template.md`. Confirm whether to keep it in the final entry format, and verify each standard/citation.
 
 NCSC Timelines for migration explicitly identifies hardware roots of trust. NSA CNSA 2.0: niche equipment and constrained devices CNSA 2.0 by 2033. IETF LAMPS for X.509 PQC. Trusted Computing Group work on PQC TPM specifications. UEFI Forum Secure Boot evolution. EU CRA Annex IV critical product categories (smart meter gateways, smart cards). 3GPP work on PQC for 6G and post-5G cellular.
-
