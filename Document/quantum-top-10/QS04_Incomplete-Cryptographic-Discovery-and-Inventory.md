@@ -1,4 +1,4 @@
-## QS04:2026 - 暗号インベントリと CBOM の欠如 (Absent Cryptographic Inventory and CBOM)
+## QS04:2026 - 不完全な暗号の発見とインベントリ (Incomplete Cryptographic Discovery and Inventory)
 
 **説明:**
 
@@ -41,4 +41,3 @@ Scenario #2: A SaaS dependency terminates TLS with a quantum-vulnerable configur
 > **TODO:** This section is carried over from the source document and is not part of `_template.md`. Confirm whether to keep it in the final entry format, and verify each standard/citation.
 
 NCSC Timelines for migration to post-quantum cryptography (2028 discovery milestone). EU Coordinated Implementation Roadmap end-2026 inventory and dependency-map requirement. CISA, NSA, NIST Quantum-Readiness fact sheet (August 2023) cryptographic inventory recommendation. NIST IR 8547 on lifecycle management. NIS2 Article 21(2)(h). DORA Article 9 ICT risk management obligation. CycloneDX and SPDX CBOM specifications.
-
