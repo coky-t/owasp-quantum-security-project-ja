@@ -1,4 +1,4 @@
-## QS03:2026 - 脆弱なシグネチャとコード署名 (Vulnerable Signatures and Code-Signing)
+## QS02:2026 - 脆弱なシグネチャとコード署名 (Vulnerable Signatures and Code-Signing)
 
 **説明:**
 
@@ -19,8 +19,8 @@
 
 **防御方法:**
 
-1. Migrate code-signing and CA hierarchies before broader estate migration - they have the longest blast radius and lead time.
-2. Adopt hybrid signing during transition: produce both a classical and a PQC signature on the same artefact so non-PQC verifiers keep working while PQC-aware verifiers gain forward security.
+1. より広い資産の移行より前に、コード署名および CA 階層を移行します。それらは影響範囲が広く、所要時間が長いためです。
+2. 移行時にハイブリッド署名を採用します。同じアーティファクトに対して従来のシグネチャと PQC シグネチャの両方を生成することで、非 PQC ベリファイアは引き続き動作し続ける一方、PQC 指向ベリファイアは前方秘匿性を獲得します。
 3. Use ML-DSA (FIPS 204) for general digital signatures; use SLH-DSA (FIPS 205) for very long-lived, high-assurance signatures where stateless hash-based security is preferred.
 4. Plan for shorter certificate lifetimes during transition (e.g. the CA/Browser Forum 47-day TLS maximum effective 2029) to reduce the exposure window.
 5. Engage PKI, code-signing, and certificate-authority vendors on PQC roadmaps - failure here is a supply-chain blocker.
